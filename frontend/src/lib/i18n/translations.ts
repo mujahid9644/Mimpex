@@ -1,0 +1,198 @@
+export type Locale = "en" | "bn";
+
+export const translations = {
+  en: {
+    nav: {
+      home: "Home",
+      about: "About Us",
+      products: "Products",
+      contact: "Contact",
+      imagebot: "ImageBot",
+    },
+    hero: {
+      badge: "MAL · Crop Science & AI",
+      title: "Science for Sustainable Agriculture",
+      subtitle: "Mimpex Agrochemicals Ltd. — crop protection, PGR, and AI-powered farmer support.",
+      cta: "Explore Products",
+      cta2: "Try ImageBot",
+    },
+    home: {
+      aboutTitle: "About Mimpex",
+      aboutBody:
+        "A leading Bangladeshi agrochemical company delivering trusted insecticides, fungicides, herbicides, and plant growth regulators.",
+      featuresEyebrow: "Our Strength",
+      featuresTitle: "Why Mimpex",
+      featuresSubtitle: "Quality, research, and trusted field support that farmers rely on.",
+      features: [
+        {
+          title: "Field-tested formulations",
+          body: "Validated across key crops for consistent protection and yield performance.",
+        },
+        {
+          title: "Research + quality control",
+          body: "In-house R&D with strict QC keeps every batch reliable and effective.",
+        },
+        {
+          title: "Nationwide dealer network",
+          body: "Local partners ensure fast availability, guidance, and after-sales support.",
+        },
+        {
+          title: "AI crop advisory",
+          body: "ImageBot and a 24/7 assistant help farmers act quickly and confidently.",
+        },
+      ],
+      newsTitle: "Latest News & Notices",
+    },
+    about: {
+      title: "About Us",
+      mission: "Mission",
+      vision: "Vision",
+      profile: "Corporate Profile",
+      board: "Board of Directors",
+      career: "Career Milestones",
+    },
+    products: {
+      title: "Product Catalog",
+      filterAll: "All",
+      insecticide: "Insecticides",
+      fungicide: "Fungicides",
+      herbicide: "Herbicides",
+      miticide: "Miticides",
+      publicHealth: "Public Health",
+      pgr: "PGR",
+    },
+    contact: {
+      title: "Contact Us",
+      address: "Corporate Office",
+      formTitle: "Send an Inquiry",
+      name: "Full Name",
+      email: "Email",
+      phone: "Phone",
+      subject: "Subject",
+      message: "Message",
+      submit: "Submit Inquiry",
+      success: "Thank you! We will contact you shortly.",
+      map: "Office Location",
+    },
+    imagebot: {
+      title: "ImageBot Diagnostic Hub",
+      subtitle: "Upload a plant photo for AI-assisted disease and weed analysis.",
+      drop: "Drag & drop a plant image here",
+      browse: "or browse files",
+      analyzing: "Analyzing with Mimpex AI Agronomist...",
+      crop: "Crop Type",
+      diagnosis: "Diagnosis",
+      product: "Recommended Product",
+      dosage: "Dosage Guidance",
+    },
+    chat: {
+      title: "Mimpex Assistant",
+      subtitle: "PGR & crop advisory",
+      placeholder: "Type your message...",
+      send: "Send",
+      welcome: "Assalamu Alaikum! Which crop are you growing? Ask about EthiPlus (ইথিপ্লাস) for rice yield.",
+    },
+    footer: {
+      rights: "All rights reserved.",
+      tagline: "Empowering farmers with innovation.",
+    },
+  },
+  bn: {
+    nav: {
+      home: "হোম",
+      about: "আমাদের সম্পর্কে",
+      products: "পণ্যসমূহ",
+      contact: "যোগাযোগ",
+      imagebot: "ইমেজবট",
+    },
+    hero: {
+      badge: "এমএল · কৃষি বিজ্ঞান ও AI",
+      title: "টেকসই কৃষির জন্য বিজ্ঞান",
+      subtitle: "মিমপেক্স এগ্রোকেমিক্যালস লিমিটেড — ফসল সুরক্ষা, পিজিআর ও কৃষক সহায়তা।",
+      cta: "পণ্য দেখুন",
+      cta2: "ইমেজবট চেষ্টা করুন",
+    },
+    home: {
+      aboutTitle: "মিমপেক্স সম্পর্কে",
+      aboutBody:
+        "বাংলাদেশের শীর্ষস্থানীয় এগ্রোকেমিক্যাল কোম্পানি — বিশ্বস্ত কীটনাশক, ছত্রাকনাশক, আগাছানাশক ও প্ল্যান্ট গ্রোথ রেগুলেটর।",
+      featuresEyebrow: "আমাদের শক্তি",
+      featuresTitle: "কেন মিমপেক্স",
+      featuresSubtitle: "মান, গবেষণা এবং মাঠ পর্যায়ে বিশ্বস্ত সহায়তা।",
+      features: [
+        {
+          title: "ক্ষেত্র পরীক্ষিত ফর্মুলেশন",
+          body: "প্রধান ফসলে পরীক্ষিত, নির্ভরযোগ্য সুরক্ষা ও ফলনের নিশ্চয়তা।",
+        },
+        {
+          title: "গবেষণা ও মাননিয়ন্ত্রণ",
+          body: "নিজস্ব R&D এবং কঠোর QC নিশ্চিত করে প্রতিটি ব্যাচের মান।",
+        },
+        {
+          title: "দেশব্যাপী ডিলার নেটওয়ার্ক",
+          body: "লোকাল ডিলার দ্রুত পণ্য সরবরাহ ও পরামর্শ দিয়ে পাশে থাকে।",
+        },
+        {
+          title: "AI কৃষি সহায়তা",
+          body: "ImageBot এবং ২৪/৭ ভার্চুয়াল সহকারী দ্রুত সিদ্ধান্তে সাহায্য করে।",
+        },
+      ],
+      newsTitle: "সর্বশেষ খবর ও নোটিশ",
+    },
+    about: {
+      title: "আমাদের সম্পর্কে",
+      mission: "মিশন",
+      vision: "ভিশন",
+      profile: "কর্পোরেট প্রোফাইল",
+      board: "পরিচালনা পর্ষদ",
+      career: "ক্যারিয়ার মাইলফলক",
+    },
+    products: {
+      title: "পণ্য ক্যাটালগ",
+      filterAll: "সব",
+      insecticide: "কীটনাশক",
+      fungicide: "ছত্রাকনাশক",
+      herbicide: "আগাছানাশক",
+      miticide: "মাকড়নাশক",
+      publicHealth: "পাবলিক হেলথ",
+      pgr: "পিজিআর",
+    },
+    contact: {
+      title: "যোগাযোগ",
+      address: "কর্পোরেট অফিস",
+      formTitle: "অনুসন্ধান পাঠান",
+      name: "পুরো নাম",
+      email: "ইমেইল",
+      phone: "ফোন",
+      subject: "বিষয়",
+      message: "বার্তা",
+      submit: "জমা দিন",
+      success: "ধন্যবাদ! আমরা শীঘ্রই যোগাযোগ করব।",
+      map: "অফিসের অবস্থান",
+    },
+    imagebot: {
+      title: "ইমেজবট ডায়াগনস্টিক হাব",
+      subtitle: "রোগ ও আগাছা বিশ্লেষণের জন্য গাছের ছবি আপলোড করুন।",
+      drop: "এখানে ছবি টেনে আনুন",
+      browse: "অথবা ফাইল নির্বাচন করুন",
+      analyzing: "মিমপেক্স AI কৃষিবিদ বিশ্লেষণ করছে...",
+      crop: "ফসলের ধরন",
+      diagnosis: "নির্ণয়",
+      product: "প্রস্তাবিত পণ্য",
+      dosage: "ডোজ নির্দেশনা",
+    },
+    chat: {
+      title: "মিমপেক্স সহকারী",
+      subtitle: "PGR ও ফসল পরামর্শ",
+      placeholder: "বার্তা লিখুন...",
+      send: "পাঠান",
+      welcome: "আসসালামু আলাইকুম! আপনি কোন ফসল চাষ করছেন? ধানের জন্য ইথিপ্লাস (PGR) জানতে পারেন।",
+    },
+    footer: {
+      rights: "সর্বস্বত্ব সংরক্ষিত।",
+      tagline: "উদ্ভাবনায় কৃষকের পাশে।",
+    },
+  },
+} as const;
+
+export type TranslationKey = (typeof translations)[Locale];
