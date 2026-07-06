@@ -48,10 +48,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     [locale, setLocale, toggleLocale]
   );
 
-  if (!ready) {
-    return <div className="min-h-screen bg-slate-50" />;
-  }
-
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 

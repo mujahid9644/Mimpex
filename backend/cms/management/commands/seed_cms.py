@@ -8,28 +8,28 @@ from products.models import Product
 
 EXTRA_PRODUCTS = [
     {
-        "matrix_id": "M_003",
+        "matrix_id": "M_009",
         "name_bn": "মিমপেক্স ইনসেক্টিসাইড ডেমো",
         "name_en": "Mimpex Insecticide Demo",
         "product_type": Product.ProductType.INSECTICIDE,
         "description_bn": "কীটনাশক শ্রেণী — নমুনা এন্ট্রি",
     },
     {
-        "matrix_id": "M_004",
+        "matrix_id": "M_010",
         "name_bn": "মিমপেক্স ফাঙ্গিসাইড ডেমো",
         "name_en": "Mimpex Fungicide Demo",
         "product_type": Product.ProductType.FUNGICIDE,
         "description_bn": "ছত্রাকনাশক শ্রেণী — নমুনা এন্ট্রি",
     },
     {
-        "matrix_id": "M_005",
+        "matrix_id": "M_011",
         "name_bn": "মিমপেক্স মাকড়নাশক ডেমো",
         "name_en": "Mimpex Miticide Demo",
         "product_type": Product.ProductType.MITICIDE,
         "description_bn": "মাকড়নাশক শ্রেণী — নমুনা এন্ট্রি",
     },
     {
-        "matrix_id": "M_006",
+        "matrix_id": "M_012",
         "name_bn": "পাবলিক হেলথ সলিউশন",
         "name_en": "Public Health Solution",
         "product_type": Product.ProductType.PUBLIC_HEALTH,
