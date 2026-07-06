@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     AdminDiagnosticListView,
+    AdminProductBulkActionView,
     AdminProductDetailView,
     AdminProductListCreateView,
     DashboardStatsView,
@@ -10,6 +11,7 @@ from .views import (
 urlpatterns = [
     path("stats/", DashboardStatsView.as_view(), name="dashboard-stats"),
     path("products/", AdminProductListCreateView.as_view(), name="admin-products"),
+    path("products/bulk/", AdminProductBulkActionView.as_view(), name="admin-products-bulk"),
     path("products/<str:matrix_id>/", AdminProductDetailView.as_view(), name="admin-product-detail"),
     path("diagnostics/", AdminDiagnosticListView.as_view(), name="admin-diagnostics"),
 ]

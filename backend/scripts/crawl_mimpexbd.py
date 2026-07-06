@@ -54,6 +54,39 @@ def fetch_html(url: str) -> str:
         return ""
 
 
+def extract_product_details(product_url: str) -> dict:
+    """Fetch individual product page and extract details."""
+    print(f"      Fetching product details from: {product_url}")
+    html = fetch_html(product_url)
+    if not html:
+        return {}
+    
+    soup = BeautifulSoup(html, "html.parser")
+    details = {}
+
+    # Extract image URL
+    # Common selectors for product images on WooCommerce/similar sites
+    image_elem = soup.select_one(
+        ".woocommerce-product-gallery__image a, .product-main-image a, .wp-post-image"
+    )
+    if image_elem and image_elem.get("href"):
+        details["image_url"] = image_elem["href"]
+    elif image_elem and image_elem.find("img") and image_elem.find("img").get("src"):
+        details["image_url"] = image_elem.find("img")["src"]
+
+    # Extract full description if available and more detailed than category excerpt
+    full_desc_elem = soup.select_one(".woocommerce-Tabs-panel--description, div.product-description, .product-long-description")
+    if full_desc_elem:
+        details["description_bn"] = re.sub(r"\s+", " ", full_desc_elem.get_text(strip=True))
+    
+    # Extract formulation/active chemical (often in description or a specific table)
+    formulation_elem = soup.select_one(".product_meta .sku, .product-information .formulation, .elementor-widget-container p strong")
+    if formulation_elem:
+        details["formulation"] = formulation_elem.get_text(strip=True)[:200]
+    
+    return details
+
+
 def extract_products_from_category(html: str, category_url: str) -> list[dict]:
     """Extract products from category page HTML with category info"""
     soup = BeautifulSoup(html, "html.parser")
@@ -101,7 +134,15 @@ def extract_products_from_category(html: str, category_url: str) -> list[dict]:
 
             break  # Use first selector that found products
 
-    return products
+    # After initial extraction, fetch details for each product
+    detailed_products = []
+    for product in products:
+        if product.get("legacy_url"):
+            product_details = extract_product_details(product["legacy_url"])
+            product.update(product_details)  # Merge details
+        detailed_products.append(product)
+
+    return detailed_products
 
 
 def decode_url_category(url: str) -> str:
@@ -183,6 +224,7 @@ def persist_to_django(all_products: list[dict]) -> int:
                     "product_type": product_type,
                     "category": default_category,
                     "legacy_url": row.get("legacy_url", ""),
+                    "image_url": row.get("image_url", ""),
                     "is_verified_matrix": False,
                 },
             )

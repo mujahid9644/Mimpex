@@ -30,7 +30,7 @@ class Product(models.Model):
     matrix_id = models.CharField(max_length=16, unique=True, help_text="e.g. M_001")
     name_bn = models.CharField(max_length=300)
     name_en = models.CharField(max_length=300, blank=True)
-    formulation = models.CharField(max_length=200, blank=True, help_text="Active ingredient / strength")
+    formulation = models.CharField(max_length=500, blank=True, help_text="Active ingredient / strength")
     active_chemical = models.CharField(max_length=240, blank=True)
     pack_size = models.CharField(max_length=80, blank=True)
     unit_price_bdt = models.DecimalField(max_digits=12, decimal_places=2, default=0)
@@ -42,6 +42,8 @@ class Product(models.Model):
         ProductCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="products"
     )
     legacy_url = models.URLField(blank=True)
+    image_url = models.URLField(blank=True, help_text="URL of the product's main image")
+    is_active = models.BooleanField(default=True, help_text="Show in website catalog and AI recommendations")
     is_verified_matrix = models.BooleanField(default=True)
     stock_quantity = models.PositiveIntegerField(default=100)
     stock_status = models.CharField(

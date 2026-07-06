@@ -2,7 +2,7 @@ import json
 
 from channels.generic.websocket import WebsocketConsumer
 
-from diagnostics.services import build_product_matrix_context
+from diagnostics.services import build_product_context_for_query
 from mimpex_api.gemini import chat_reply
 
 
@@ -25,6 +25,6 @@ class ChatConsumer(WebsocketConsumer):
             self.send(text_data=json.dumps({"type": "error", "content": "messages required"}))
             return
 
-        context = build_product_matrix_context()
+        context = build_product_context_for_query(str(messages[-1].get("content", "")))
         reply = chat_reply(messages, context)
         self.send(text_data=json.dumps({"type": "message", "role": "assistant", "content": reply}))

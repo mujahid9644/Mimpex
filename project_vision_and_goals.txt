@@ -1,0 +1,31 @@
+======================================================
+MIMPEX NEXT-GEN AI ECOSYSTEM - MASTER PROJECT GOAL
+======================================================
+
+1. THE ULTIMATE VISION
+Transform the legacy website (mimpexbd.com) into a multi-million dollar, state-of-the-art AI-powered enterprise platform. This is not just a basic portfolio site; it must be a fully functional, highly optimized corporate ecosystem. 
+The UI must be 100x better, pixel-perfect, and breathtakingly modern. 
+
+2. CORE TECHNOLOGY STACK
+- Frontend: Next.js 14+ (App Router), TypeScript, Tailwind CSS, Framer Motion, Radix UI.
+- Backend: Django REST Framework (Python), PostgreSQL.
+- AI Integration: Gemini API for multimodal (Vision + Chat) agents.
+
+3. ARCHITECTURAL REQUIREMENTS (THE 99% MISSING PIECES)
+- Premium UI/UX: Exact replication of Mimpex's product categorization but with 2026-level modern web design. Use Emerald Green (#047857), Crimson Red (#b91c1c), and clean whites.
+- Zero Distortion: All agricultural product images must use `object-contain` in fixed containers. Hero banners must use `object-cover`. No squished or broken images.
+- Bilingual Mastery: Flawless English to Bangla state toggling across the entire site without breaking any CSS layout.
+
+4. THE DUAL AI AGENTS
+- The ImageBot (AI Pathologist): A premium drag-and-drop UI where farmers upload diseased crop photos. The Django backend processes this via Gemini Vision and returns a highly structured JSON diagnosis matching Mimpex's specific product catalog.
+- The Floating Chatbot (Sales Assistant): A globally available, sticky widget that proactively sells PGR (Plant Growth Regulators) like 'EthiPlus' in native Bangla.
+
+5. ENTERPRISE ADMIN DASHBOARD
+- A secure Next.js route (`/admin/dashboard`) functioning as the CEO's control center.
+- Features: Real-time sales charts, AI diagnostic logs (tracking regional crop diseases), and full CRUD functionality for the product database syncing with Django/PostgreSQL.
+
+6. STRICT DEVELOPMENT STANDARDS
+- NO PLACEHOLDERS. NO LAZY CODE. 
+- Every component must be fully responsive (Mobile, Tablet, Desktop).
+- The codebase must pass strict TypeScript checks and Next.js build tests.
+======================================================

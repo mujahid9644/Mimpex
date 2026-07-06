@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Activity, Bot, Boxes, CircleDollarSign, FlaskConical, MapPinned, Plus, RefreshCw, Store, Trash2 } from "lucide-react";
+import { Activity, Bot, Boxes, CheckSquare, CircleDollarSign, FlaskConical, MapPinned, Plus, RefreshCw, Square, Store, Trash2 } from "lucide-react";
 
 import { adminApi, type AdminProduct, type DashboardStats, type DiagnosticHeatmapRow, type DiagnosticLogRow } from "@/lib/admin-api";
 
@@ -32,6 +32,8 @@ const DEMO_STATS: DashboardStats = {
   active_dealers: 248,
   crops_diagnosed_ai: 1736,
   products_in_catalog: 24,
+  active_products: 24,
+  inactive_products: 0,
   stock_summary: { in_stock: 19, low_stock: 4, out_of_stock: 1 },
   revenue_delta_percent: 18.4,
   dealer_delta_percent: 7.8,
@@ -62,8 +64,10 @@ export default function AdminDashboardPage() {
   const [logs, setLogs] = useState<DiagnosticLogRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<ProductForm>(initialForm);
+  const [selected, setSelected] = useState<string[]>([]);
 
   const heatmap = stats.diagnostic_heatmap?.length ? stats.diagnostic_heatmap : DEMO_HEATMAP;
+  const allSelected = products.length > 0 && selected.length === products.length;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -71,6 +75,7 @@ export default function AdminDashboardPage() {
       const [nextStats, nextProducts, nextLogs] = await Promise.all([adminApi.stats(), adminApi.products(), adminApi.diagnostics()]);
       setStats({ ...DEMO_STATS, ...nextStats });
       setProducts(nextProducts);
+      setSelected([]);
       setLogs(nextLogs);
     } catch {
       setStats(DEMO_STATS);
@@ -135,6 +140,23 @@ export default function AdminDashboardPage() {
   async function updateProduct(matrixId: string, body: Partial<AdminProduct>) {
     await adminApi.updateProduct(matrixId, body);
     load();
+  }
+
+  async function bulkAction(action: "activate" | "deactivate" | "verify" | "unverify" | "delete") {
+    if (selected.length === 0) return;
+    if (action === "delete" && !confirm(`Delete ${selected.length} selected products?`)) return;
+    await adminApi.bulkProducts(selected, action);
+    load();
+  }
+
+  function toggleSelected(matrixId: string) {
+    setSelected((current) =>
+      current.includes(matrixId) ? current.filter((item) => item !== matrixId) : [...current, matrixId]
+    );
+  }
+
+  function toggleAll() {
+    setSelected(allSelected ? [] : products.map((product) => product.matrix_id));
   }
 
   async function removeProduct(matrixId: string) {
@@ -217,10 +239,36 @@ export default function AdminDashboardPage() {
 
       <section className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-100 p-6">
-          <h2 className="flex items-center gap-2 text-xl font-black text-slate-950">
-            <FlaskConical className="h-5 w-5 text-emerald-700" />
-            Product Pricing, Formulation & Stock CRUD
-          </h2>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="flex items-center gap-2 text-xl font-black text-slate-950">
+                <FlaskConical className="h-5 w-5 text-emerald-700" />
+                Product Pricing, Formulation & Stock CRUD
+              </h2>
+              <p className="mt-1 text-sm font-semibold text-slate-500">
+                {stats.active_products ?? products.filter((item) => item.is_active).length} active,{" "}
+                {stats.inactive_products ?? products.filter((item) => !item.is_active).length} inactive,{" "}
+                {selected.length} selected
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => bulkAction("activate")} disabled={selected.length === 0} className="rounded-md bg-emerald-700 px-3 py-2 text-xs font-black text-white disabled:opacity-40">
+                Activate
+              </button>
+              <button type="button" onClick={() => bulkAction("deactivate")} disabled={selected.length === 0} className="rounded-md bg-slate-700 px-3 py-2 text-xs font-black text-white disabled:opacity-40">
+                Deactivate
+              </button>
+              <button type="button" onClick={() => bulkAction("verify")} disabled={selected.length === 0} className="rounded-md bg-cyan-700 px-3 py-2 text-xs font-black text-white disabled:opacity-40">
+                Verify
+              </button>
+              <button type="button" onClick={() => bulkAction("unverify")} disabled={selected.length === 0} className="rounded-md bg-amber-600 px-3 py-2 text-xs font-black text-white disabled:opacity-40">
+                Unverify
+              </button>
+              <button type="button" onClick={() => bulkAction("delete")} disabled={selected.length === 0} className="rounded-md bg-red-700 px-3 py-2 text-xs font-black text-white disabled:opacity-40">
+                Delete Selected
+              </button>
+            </div>
+          </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
             <input className="input-pro" placeholder="Matrix ID" value={form.matrix_id} onChange={(event) => setForm({ ...form, matrix_id: event.target.value })} />
             <input className="input-pro" placeholder="Name BN" value={form.name_bn} onChange={(event) => setForm({ ...form, name_bn: event.target.value })} />
@@ -248,11 +296,18 @@ export default function AdminDashboardPage() {
           <table className="w-full min-w-[980px] text-left text-sm">
             <thead className="bg-slate-50 text-xs uppercase text-slate-500">
               <tr>
+                <th className="px-4 py-3">
+                  <button type="button" onClick={toggleAll} className="text-slate-500 hover:text-emerald-700" aria-label="Select all products">
+                    {allSelected ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                  </button>
+                </th>
                 <th className="px-4 py-3">ID</th>
                 <th className="px-4 py-3">Product</th>
                 <th className="px-4 py-3">Active Chemical</th>
                 <th className="px-4 py-3">Pack</th>
                 <th className="px-4 py-3">Price</th>
+                <th className="px-4 py-3">Active</th>
+                <th className="px-4 py-3">Verified</th>
                 <th className="px-4 py-3">Stock</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Actions</th>
@@ -261,11 +316,32 @@ export default function AdminDashboardPage() {
             <tbody>
               {products.map((product) => (
                 <tr key={product.matrix_id} className="border-t border-slate-100">
+                  <td className="px-4 py-3">
+                    <button type="button" onClick={() => toggleSelected(product.matrix_id)} className="text-slate-500 hover:text-emerald-700" aria-label={`Select ${product.matrix_id}`}>
+                      {selected.includes(product.matrix_id) ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                    </button>
+                  </td>
                   <td className="px-4 py-3 font-mono text-xs">{product.matrix_id}</td>
                   <td className="px-4 py-3 font-bold">{product.name_bn || product.name_en}</td>
                   <td className="px-4 py-3">{product.active_chemical || product.formulation}</td>
                   <td className="px-4 py-3">{product.pack_size || "N/A"}</td>
                   <td className="px-4 py-3">{formatBdt(product.unit_price_bdt || 0)}</td>
+                  <td className="px-4 py-3">
+                    <input
+                      type="checkbox"
+                      checked={product.is_active}
+                      onChange={(event) => updateProduct(product.matrix_id, { is_active: event.target.checked })}
+                      className="h-4 w-4 accent-emerald-700"
+                    />
+                  </td>
+                  <td className="px-4 py-3">
+                    <input
+                      type="checkbox"
+                      checked={product.is_verified_matrix}
+                      onChange={(event) => updateProduct(product.matrix_id, { is_verified_matrix: event.target.checked })}
+                      className="h-4 w-4 accent-cyan-700"
+                    />
+                  </td>
                   <td className="px-4 py-3">
                     <input
                       type="number"

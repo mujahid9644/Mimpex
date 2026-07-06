@@ -5,6 +5,8 @@ export type DashboardStats = {
   active_dealers: number;
   crops_diagnosed_ai: number;
   products_in_catalog: number;
+  active_products?: number;
+  inactive_products?: number;
   stock_summary: { in_stock: number; low_stock: number; out_of_stock: number };
   revenue_delta_percent?: number;
   dealer_delta_percent?: number;
@@ -26,6 +28,8 @@ export type AdminProduct = {
   crop_targets: string[];
   stock_quantity: number;
   stock_status: string;
+  image_url: string;
+  is_active: boolean;
   is_verified_matrix: boolean;
 };
 
@@ -63,5 +67,10 @@ export const adminApi = {
     adminFetch<AdminProduct>(`/products/${matrixId}/`, { method: "PATCH", body: JSON.stringify(body) }),
   deleteProduct: (matrixId: string) =>
     adminFetch<void>(`/products/${matrixId}/`, { method: "DELETE" }),
+  bulkProducts: (matrixIds: string[], action: "activate" | "deactivate" | "verify" | "unverify" | "delete") =>
+    adminFetch<{ updated?: number; deleted?: number }>("/products/bulk/", {
+      method: "POST",
+      body: JSON.stringify({ matrix_ids: matrixIds, action }),
+    }),
   diagnostics: () => adminFetch<DiagnosticLogRow[]>("/diagnostics/"),
 };

@@ -101,7 +101,7 @@ export function YouTubeSection() {
             </div>
  
             <a
-              href={CHANNEL_URL}
+              href="https://www.youtube.com/@MimpexAgrochemicalsLtd"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 rounded-full bg-red-600 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:bg-red-700 hover:shadow-xl hover:scale-105"

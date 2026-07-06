@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from diagnostics.services import build_product_matrix_context
+from diagnostics.services import build_product_context_for_query
 from mimpex_api.gemini import chat_reply
 
 
@@ -17,7 +17,7 @@ class ChatMessageView(APIView):
         if not messages or not isinstance(messages, list):
             return Response({"detail": "message or messages array is required"}, status=status.HTTP_400_BAD_REQUEST)
 
-        context = build_product_matrix_context()
+        context = build_product_context_for_query(str(message or messages[-1].get("content", "")))
         try:
             reply = chat_reply(messages, context)
         except Exception as exc:

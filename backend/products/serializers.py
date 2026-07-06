@@ -29,8 +29,10 @@ class ProductSerializer(serializers.ModelSerializer):
             "product_type",
             "category",
             "legacy_url",
+            "image_url",
             "stock_quantity",
             "stock_status",
+            "is_active",
         )
 
 
@@ -52,6 +54,8 @@ class ProductAdminSerializer(serializers.ModelSerializer):
             "product_type",
             "stock_quantity",
             "stock_status",
+            "image_url",
+            "is_active",
             "is_verified_matrix",
         )
 

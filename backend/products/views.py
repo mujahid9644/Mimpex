@@ -7,23 +7,27 @@ from .serializers import ProductCategorySerializer, ProductSerializer
 
 class ProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
+    pagination_class = None
 
     def get_queryset(self):
-        qs = Product.objects.filter(is_verified_matrix=True).select_related("category")
+        qs = Product.objects.filter(is_active=True).select_related("category")
+
         product_type = self.request.query_params.get("type")
         if product_type:
             qs = qs.filter(product_type=product_type)
+
         crop = self.request.query_params.get("crop")
         if crop:
             if connection.vendor == "postgresql":
                 qs = qs.filter(crop_targets__contains=[crop])
             else:
                 qs = qs.filter(crop_targets__icontains=crop)
+
         return qs
 
 
 class ProductDetailView(generics.RetrieveAPIView):
-    queryset = Product.objects.filter(is_verified_matrix=True)
+    queryset = Product.objects.filter(is_active=True)
     serializer_class = ProductSerializer
     lookup_field = "matrix_id"
 

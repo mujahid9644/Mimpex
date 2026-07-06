@@ -8,8 +8,7 @@ import { Bot, CloudUpload, CheckCircle, Loader2, Sprout, ShieldAlert, Droplets, 
 import { Container } from "@/components/ui/Container";
 import { getCropBySlug } from "@/data/crops";
 import { cn } from "@/lib/cn";
-import { diagnoseImage, type DiagnosisResult } from "@/lib/api";
-import { getCatalogProductBySlug } from "@/data/mimpex-catalog";
+import { diagnoseImage, fetchProduct, type DiagnosisResult, type Product } from "@/lib/api";
 
 type ImageBotHubProps = {
   standalone?: boolean;
@@ -25,12 +24,14 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<DiagnosisResult | null>(null);
+  const [matchedProduct, setMatchedProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const processFile = useCallback(
     async (file: File) => {
       setError(null);
       setResult(null);
+      setMatchedProduct(null);
       const reader = new FileReader();
       reader.onload = async () => {
         const dataUrl = String(reader.result);
@@ -39,6 +40,11 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
         try {
           const diagnosis = await diagnoseImage(file, crop?.nameBn);
           setResult(diagnosis);
+          if (diagnosis.matched_product_id) {
+            fetchProduct(diagnosis.matched_product_id)
+              .then(setMatchedProduct)
+              .catch(() => setMatchedProduct(null));
+          }
         } catch (err) {
           const detail = err instanceof Error && err.message.includes("Django API is unreachable") ? ` ${err.message}` : "";
           setError(`ছবি বিশ্লেষণ করা যায়নি। পরিষ্কার পাতা/ফসলের ছবি দিয়ে আবার চেষ্টা করুন অথবা backend server চালু আছে কি না দেখুন।${detail}`);
@@ -53,18 +59,15 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
 
   const handleProductClick = () => {
     if (result?.matched_product_id) {
-      const slug = result.matched_product_id;
-      router.push(`/product/${slug}`);
+      router.push(`/products/${encodeURIComponent(result.matched_product_id)}`);
     }
   };
-
-  const product = result ? getCatalogProductBySlug(result.matched_product_id) : null;
 
   return (
     <section
       id="imagebot"
       className={cn(
-        "scroll-mt-28 bg-[radial-gradient(circle_at_top_left,#1f7a3a_0,#052e1e_42%,#02170f_100%)] py-16 md:py-24",
+        "scroll-mt-28 bg-[radial-gradient(circle_at_top_left,#0b4834_0,#052e1e_42%,#02170f_100%)] py-16 md:py-10",
         standalone && "min-h-screen"
       )}
     >
@@ -152,7 +155,7 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
           </div>
         </div>
 
-        {result && product && (
+        {result && (
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -162,6 +165,7 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
             <div className="grid gap-4 md:grid-cols-2">
               <InfoCard icon={Sprout} label="ফসল প্রকার" value={result.crop_type} />
               <InfoCard icon={ShieldAlert} label="রোগের নাম" value={result.disease_name || result.condition} />
+              <InfoCard icon={Droplets} label="প্রয়োগের মাত্রা" value={result.bangla_prescription.dosage} />
             </div>
 
             {/* Treatment Strategy & Agri-Prescription Card */}
@@ -179,11 +183,13 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
                   <h3 className="text-lg font-black text-white">রোগ নিরাময় কার্যকারিতা</h3>
                 </div>
                 <p className="mb-4 text-sm leading-relaxed text-emerald-50/80">
-                  {product.efficacyBn}
+                  {result.bangla_prescription.disease_explanation_bn}
                 </p>
                 <div className="space-y-2 pt-4 border-t border-white/10">
                   <p className="text-xs font-bold text-emerald-50/60">সক্রিয় উপাদান:</p>
-                  <p className="text-sm font-semibold text-emerald-100">{product.mainIngredientBn}</p>
+                <p className="text-sm font-semibold text-emerald-100">
+                  {matchedProduct?.active_chemical || matchedProduct?.formulation || "ডাটাবেজে সক্রিয় উপাদান সেট করা নেই"}
+                </p>
                 </div>
               </motion.div>
 
@@ -199,7 +205,7 @@ export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
                     className="group inline-flex items-center gap-2 transition"
                   >
                     <h3 className="text-lg font-black text-lime-300 group-hover:text-lime-200 transition">
-                      {product.nameBn}
+                      {matchedProduct?.name_bn || matchedProduct?.name_en || result.matched_product_id}
                     </h3>
                     <ArrowRight className="h-4 w-4 text-lime-300 group-hover:translate-x-1 transition-transform" />
                   </button>

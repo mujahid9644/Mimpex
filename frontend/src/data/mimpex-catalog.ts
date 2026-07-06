@@ -11,6 +11,7 @@ export type ProductCategoryId =
 
 export type MimpexCatalogProduct = {
   id: string;
+  matrixId: string; // Add matrixId here
   category: Exclude<ProductCategoryId, "all">;
   nameBn: string;
   nameEn: string;
@@ -38,7 +39,19 @@ export const CATALOG_CATEGORIES: {
   { id: "public_health", labelEn: "Public Health", labelBn: "জনস্বাস্থ্য" },
 ];
 
-const product = (
+function product(
+  id: string,
+  matrixId: string,
+  category: MimpexCatalogProduct["category"],
+  nameBn: string,
+  image: string,
+  sourceUrl: string,
+  mainIngredientBn: string,
+  efficacyBn: string,
+  dosageBn: string,
+  cropTagsBn?: string[]
+): MimpexCatalogProduct;
+function product(
   id: string,
   category: MimpexCatalogProduct["category"],
   nameBn: string,
@@ -47,23 +60,43 @@ const product = (
   mainIngredientBn: string,
   efficacyBn: string,
   dosageBn: string,
-  cropTagsBn: string[] = []
-): MimpexCatalogProduct => ({
-  id,
-  category,
-  nameBn,
-  nameEn: nameBn,
-  image,
-  sourceUrl,
-  mainIngredientBn,
-  efficacyBn,
-  dosageBn,
-  cropTagsBn,
-});
+  cropTagsBn?: string[]
+): MimpexCatalogProduct;
+function product(id: string, second: string, ...rest: unknown[]): MimpexCatalogProduct {
+  const hasMatrixId = rest.length === 8;
+  const matrixId = hasMatrixId ? second : id;
+  const [category, nameBn, image, sourceUrl, mainIngredientBn, efficacyBn, dosageBn, cropTagsBn = []] = (
+    hasMatrixId ? rest : [second, ...rest]
+  ) as [
+    MimpexCatalogProduct["category"],
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string[],
+  ];
+
+  return {
+    id,
+    matrixId,
+    category,
+    nameBn,
+    nameEn: nameBn,
+    image,
+    sourceUrl,
+    mainIngredientBn,
+    efficacyBn,
+    dosageBn,
+    cropTagsBn,
+  };
+}
 
 export const MIMPEX_CATALOG: MimpexCatalogProduct[] = [
   product(
     "oxycob-50-wp",
+    "M_018", // matrixId for Oxycob 50 WP
     "fungicide",
     "অক্সিকব ৫০ ডাব্লিউ পি",
     "https://mimpexbd.com/wp-content/uploads/2022/08/oxycob-product-frame-300x300.png",
@@ -75,6 +108,7 @@ export const MIMPEX_CATALOG: MimpexCatalogProduct[] = [
   ),
   product(
     "eylet-15-wdg",
+    "M_019", // matrixId for Eylet 15 WDG (assuming, not in seed_matrix)
     "herbicide",
     "আইলেট ১৫ ডাব্লিউ ডি জি",
     "https://mimpexbd.com/wp-content/uploads/2022/08/eylet-product-frame-300x300.png",
@@ -86,6 +120,7 @@ export const MIMPEX_CATALOG: MimpexCatalogProduct[] = [
   ),
   product(
     "ultima-plus-40-wg",
+    "M_005", // matrixId for Ultima Plus 40 WG
     "insecticide",
     "আলটিমা প্লাস ৪০ ডব্লিউ জি",
     "https://mimpexbd.com/wp-content/uploads/2022/07/ultimaplus-product-frame-300x300.png",
@@ -97,6 +132,7 @@ export const MIMPEX_CATALOG: MimpexCatalogProduct[] = [
   ),
   product(
     "ashazeb-80-wp",
+    "M_020", // matrixId for Ashazeb 80 WP (assuming, not in seed_matrix)
     "fungicide",
     "আশাজেব ৮০ ডাব্লিউ পি",
     "https://mimpexbd.com/wp-content/uploads/2022/08/ashazeb-product-frame-300x300.png",
@@ -346,7 +382,7 @@ export function getCatalogProductBySlug(slug: string) {
   const decodedSlug = decodeURIComponent(slug);
   return MIMPEX_CATALOG.find((product) => {
     const officialSlug = getProductSlug(product);
-    return product.id === slug || officialSlug === slug || decodeURIComponent(officialSlug) === decodedSlug;
+    return product.id === slug || officialSlug === slug || decodeURIComponent(officialSlug) === decodedSlug || product.matrixId === slug;
   });
 }
 

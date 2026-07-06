@@ -110,7 +110,7 @@ def _mock_diagnosis() -> dict:
         "disease_name": "Leaf spot or blast-like symptom",
         "condition": "Demo diagnosis - set GEMINI_API_KEY for live Gemini Vision",
         "confidence_score": 0.62,
-        "matched_product_id": "oxycob-50-wp",
+        "matched_product_id": "M_001",
         "bangla_prescription": {
             "disease_explanation_bn": "ছবিতে পাতার দাগ বা ব্লাস্ট ধরনের উপসর্গ দেখা যাচ্ছে। ধানের এই রোগ দমনে অক্সিকব ৫০ ডাব্লিউ পি অত্যন্ত কার্যকরী। লাইভ Gemini Vision চালু হলে রোগ নির্ণয় আরও নির্ভুল হবে।",
             "dosage": "৭০০ গ্রাম প্রতি একরে।",

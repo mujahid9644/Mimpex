@@ -85,3 +85,65 @@ class AdminDiagnosticListView(APIView):
             for log in qs
         ]
         return Response(data)
+
+
+class AdminProductBulkActionView(APIView):
+    """
+    Bulk actions:
+    {
+        "action": "delete",
+        "matrix_ids": ["P001", "P002"]
+    }
+
+    {
+        "action": "verify",
+        "matrix_ids": ["P001", "P002"]
+    }
+
+    {
+        "action": "unverify",
+        "matrix_ids": ["P001", "P002"]
+    }
+    """
+
+    def post(self, request):
+        action = request.data.get("action")
+        matrix_ids = request.data.get("matrix_ids", [])
+
+        if not matrix_ids:
+            return Response(
+                {"detail": "matrix_ids is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        queryset = Product.objects.filter(matrix_id__in=matrix_ids)
+
+        if action == "delete":
+            count = queryset.count()
+            queryset.delete()
+            return Response(
+                {
+                    "message": f"{count} products deleted."
+                }
+            )
+
+        elif action == "verify":
+            updated = queryset.update(is_verified_matrix=True)
+            return Response(
+                {
+                    "message": f"{updated} products verified."
+                }
+            )
+
+        elif action == "unverify":
+            updated = queryset.update(is_verified_matrix=False)
+            return Response(
+                {
+                    "message": f"{updated} products unverified."
+                }
+            )
+
+        return Response(
+            {"detail": "Invalid action"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )

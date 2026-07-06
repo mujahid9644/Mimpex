@@ -28,7 +28,12 @@ export interface Product {
   description_en: string;
   product_type: string;
   legacy_url: string;
+  image_url: string;
+  is_active: boolean;
+  stock_status: string;
 }
+
+type ListResponse<T> = T[] | { results?: T[] };
 
 export type NewsItem = {
   id: number;
@@ -105,7 +110,12 @@ export async function fetchProducts(type?: string): Promise<Product[]> {
   const url = type
     ? `/api/products/?type=${encodeURIComponent(type)}`
     : "/api/products/";
-  return apiFetch(url);
+  const data = await apiFetch<ListResponse<Product>>(url, { cache: "no-store" });
+  return Array.isArray(data) ? data : data.results ?? [];
+}
+
+export async function fetchProduct(matrixId: string): Promise<Product> {
+  return apiFetch(`/api/products/${encodeURIComponent(matrixId)}/`, { cache: "no-store" });
 }
 
 export async function fetchNews(): Promise<NewsItem[]> {

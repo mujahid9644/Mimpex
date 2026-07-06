@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "mimpexbd.com", pathname: "/wp-content/**" },
+      { protocol: "https", hostname: "mimpexbd.com", pathname: "/**" }, // এখানে "/**" করে দেওয়া হয়েছে
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "images.pexels.com", pathname: "/**" },
       { protocol: "https", hostname: "thf.bing.com", pathname: "/**" },
