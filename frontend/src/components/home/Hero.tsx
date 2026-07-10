@@ -5,11 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, ScanLine } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
-import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export function Hero() {
-  const { t, locale } = useLanguage();
-
   return (
     <section className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden bg-emerald-950 lg:h-screen">
       {/* Background Video - Opacity full set kore ujjol kora hoyese */}
@@ -36,21 +33,11 @@ export function Hero() {
         >
           {/* Clean, Modern & High-Contrast Typography */}
           <h1 className="text-4xl font-black leading-[1.25] tracking-tight text-white md:text-6xl lg:text-7xl">
-            {locale === "bn" ? (
-              <>
-                কৃষি ও কৃষকের কল্যাণে <span className="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">মিমপেক্স</span>
-              </>
-            ) : (
-              <>
-                Science for <span className="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">Sustainable Agriculture</span>
-              </>
-            )}
+            কৃষি ও কৃষকের কল্যাণে <span className="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">মিমপেক্স</span>
           </h1>
 
           <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-emerald-50/90 md:text-xl md:leading-8">
-            {locale === "bn"
-              ? "ফসল সুরক্ষা, সার ও পিজিআর, কৃষক সহায়তা এবং স্মার্ট রোগ নির্ণয়ে মিমপেক্স এগ্রোকেমিক্যালস লিমিটেড।"
-              : "Mimpex Agrochemicals Ltd. — crop protection, PGR, and AI-powered farmer support."}
+            ফসল সুরক্ষা, সার ও পিজিআর, কৃষক সহায়তা এবং স্মার্ট রোগ নির্ণয়ে মিমপেক্স এগ্রোকেমিক্যালস লিমিটেড।
           </p>
 
           {/* Premium UI Buttons */}
@@ -59,7 +46,7 @@ export function Hero() {
               href="/products"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-7 text-sm font-bold text-white shadow-xl shadow-emerald-950/30 transition-all duration-300 hover:from-emerald-600 hover:to-teal-700 hover:scale-[1.02] active:scale-[0.98] md:h-14 md:text-base"
             >
-              {t.hero.cta}
+              পণ্য দেখুন
               <ArrowRight className="h-4 w-4" />
             </Link>
 
@@ -68,7 +55,7 @@ export function Hero() {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-7 text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-[1.02] active:scale-[0.98] md:h-14 md:text-base"
             >
               <ScanLine className="h-4 w-4 text-emerald-400" />
-              {t.hero.cta2}
+              ImageBot চেষ্টা করুন
             </Link>
           </div>
         </motion.div>

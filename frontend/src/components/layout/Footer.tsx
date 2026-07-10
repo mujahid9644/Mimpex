@@ -8,7 +8,7 @@ import { Logo } from "@/components/layout/Logo";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export function Footer() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
 
   return (
@@ -32,7 +32,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">{t.footer.quickLinks}</h4>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">Quick Links</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
             {[
               { href: "/", label: t.nav.home },
@@ -50,15 +50,15 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">{t.footer.contactSection}</h4>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">Contact</h4>
           <ul className="mt-4 space-y-3 text-sm text-white/80">
             <li className="flex gap-2">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-mimpex-red" />
-              {locale === "bn" ? "ধানমণ্ডি, ঢাকা ১২০৫" : "Dhanmondi, Dhaka 1205"}
+              House 12, Road 5, Dhanmondi, Dhaka 1205
             </li>
             <li className="flex gap-2">
               <Phone className="h-4 w-4 shrink-0 text-mimpex-red" />
-              +880 1711-000000
+              +880 1234-567890
             </li>
             <li className="flex gap-2">
               <Mail className="h-4 w-4 shrink-0 text-mimpex-red" />
@@ -68,12 +68,12 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">{t.footer.aiServices}</h4>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">AI Services</h4>
           <p className="mt-4 text-sm leading-relaxed text-white/75">
-            {t.footer.aiServicesDesc}
+            ImageBot crop diagnostics and 24/7 virtual PGR sales assistant — integrated on this platform.
           </p>
           <Link href="/#imagebot" className="mt-4 inline-block text-sm font-semibold text-white underline-offset-4 hover:underline">
-            {t.footer.openImageBot} →
+            Open ImageBot →
           </Link>
         </div>
       </Container>

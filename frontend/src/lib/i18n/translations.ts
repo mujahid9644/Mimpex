@@ -95,11 +95,6 @@ export const translations = {
     footer: {
       rights: "All rights reserved.",
       tagline: "Empowering farmers with innovation.",
-      quickLinks: "Quick Links",
-      contactSection: "Contact",
-      aiServices: "AI Services",
-      aiServicesDesc: "ImageBot crop diagnostics and 24/7 virtual PGR sales assistant — integrated on this platform.",
-      openImageBot: "Open ImageBot",
     },
   },
   bn: {
@@ -196,11 +191,6 @@ export const translations = {
     footer: {
       rights: "সর্বস্বত্ব সংরক্ষিত।",
       tagline: "উদ্ভাবনায় কৃষকের পাশে।",
-      quickLinks: "দ্রুত লিঙ্ক",
-      contactSection: "যোগাযোগ",
-      aiServices: "কৃষি সমাধান",
-      aiServicesDesc: "ImageBot রোগ নির্ণয় এবং ২৪/৭ ভার্চুয়াল পিজিআর বিক্রয় সহকারী — এই প্ল্যাটফর্মে সংযুক্ত।",
-      openImageBot: "ইমেজবট খুলুন",
     },
   },
 } as const;
