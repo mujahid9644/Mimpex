@@ -10,13 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CATALOG_CATEGORIES } from "@/data/mimpex-catalog";
 import { MIMPEX_ASSETS } from "@/lib/assets";
 import { cn } from "@/lib/cn";
-
-const navItems = [
-  { href: "/about", label: "আমাদের সম্পর্কে" },
-  { href: "/board", label: "পরিচালনা পর্ষদ" },
-  { href: "/branches", label: "শাখা অফিস" },
-  { href: "/blogs", label: "কৃষি বার্তা" },
-];
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 function underlineLink(active: boolean) {
   return cn(
@@ -31,6 +25,14 @@ export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
+  const { t, locale } = useLanguage();
+
+  const navItems = useMemo(() => [
+    { href: "/about", label: t.nav.about },
+    { href: "/board", label: locale === "bn" ? "পরিচালনা পর্ষদ" : "Board of Directors" },
+    { href: "/branches", label: locale === "bn" ? "শাখা অফিস" : "Branch Offices" },
+    { href: "/blogs", label: locale === "bn" ? "কৃষি বার্তা" : "Blog Posts" },
+  ], [t, locale]);
 
   useEffect(() => {
     setOpen(false);
@@ -75,7 +77,7 @@ export function Navbar() {
                 className={cn(underlineLink(pathname === "/products"), "gap-2")}
                 aria-expanded={productOpen}
               >
-                পণ্য তালিকা
+                {t.nav.products}
                 <ChevronDown className={cn("h-5 w-5 transition", productOpen && "rotate-180")} />
               </button>
               <AnimatePresence>
@@ -87,7 +89,7 @@ export function Navbar() {
                     className="absolute right-0 top-full w-72 overflow-hidden rounded-b-xl bg-white/95 shadow-2xl ring-1 ring-emerald-900/10 backdrop-blur-md"
                   >
                     <Link href="/products" className="block bg-emerald-800 px-5 py-3 text-base font-bold text-white">
-                      সকল পণ্য
+                      {t.products.filterAll}
                     </Link>
                     {productCategories.map((category) => (
                       <Link
@@ -95,7 +97,7 @@ export function Navbar() {
                         href={`/products?category=${category.id}`}
                         className="block border-b border-slate-100 px-5 py-3 text-[15px] font-semibold text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-800"
                       >
-                        {category.labelBn}
+                        {locale === "bn" ? category.labelBn : category.labelEn}
                       </Link>
                     ))}
                   </motion.div>
@@ -107,7 +109,7 @@ export function Navbar() {
               href="/imagebot"
               className="ml-4 flex h-14 items-center rounded-md border border-white/20 bg-cyan-500/90 px-6 text-[18px] font-black text-white shadow-lg shadow-cyan-950/15 transition hover:-translate-y-0.5 hover:bg-cyan-500 xl:px-8 xl:text-[22px]"
             >
-              কৃষি সমাধান
+              {t.nav.imagebot}
             </Link>
             <Link href="/products" aria-label="Search products" className="ml-4 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/10">
               <Search className="h-7 w-7" strokeWidth={2} />
@@ -151,16 +153,16 @@ export function Navbar() {
                 ))}
                 <div className="my-3 rounded-lg border border-slate-200">
                   <Link href="/products" className="block rounded-t-lg bg-emerald-700 px-4 py-3 font-bold text-white">
-                    পণ্য তালিকা
+                    {t.nav.products}
                   </Link>
                   {productCategories.map((category) => (
                     <Link key={category.id} href={`/products?category=${category.id}`} className="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">
-                      {category.labelBn}
+                      {locale === "bn" ? category.labelBn : category.labelEn}
                     </Link>
                   ))}
                 </div>
                 <Link href="/imagebot" className="mt-2 rounded-md bg-cyan-500 px-4 py-3 text-center text-lg font-bold text-white">
-                  কৃষি সমাধান
+                  {t.nav.imagebot}
                 </Link>
               </nav>
             </motion.aside>
