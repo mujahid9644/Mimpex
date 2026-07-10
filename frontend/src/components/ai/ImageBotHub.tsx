@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, CloudUpload, CheckCircle, Loader2, Sprout, ShieldAlert, Droplets, ArrowRight } from "lucide-react";
 
@@ -12,12 +12,11 @@ import { diagnoseImage, fetchProduct, type DiagnosisResult, type Product } from 
 
 type ImageBotHubProps = {
   standalone?: boolean;
+  cropSlug?: string;
 };
 
-export function ImageBotHub({ standalone = false }: ImageBotHubProps) {
+export function ImageBotHub({ standalone = false, cropSlug = "" }: ImageBotHubProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const cropSlug = searchParams.get("crop") ?? "";
   const crop = cropSlug ? getCropBySlug(cropSlug) : undefined;
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
