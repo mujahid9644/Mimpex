@@ -16,7 +16,7 @@ export function MapPlaceholder() {
             <MapPin className="h-7 w-7 text-mimpex-red" />
           </span>
           <p className="mt-4 font-bold text-mimpex-green-dark">{t.contact.map}</p>
-          <p className="mt-1 px-6 text-sm text-slate-500">Dhanmondi, Dhaka — Google Maps embed</p>
+          <p className="mt-1 px-6 text-sm text-slate-500">ধানমন্ডি, ঢাকা — Google Maps এম্বেড</p>
         </div>
       </div>
     </div>

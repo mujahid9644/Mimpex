@@ -21,10 +21,10 @@ export default function Error({
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-      <h1 className="text-2xl font-bold text-emerald-900">Something went wrong</h1>
+      <h1 className="text-2xl font-bold text-emerald-900">কিছু একটা সমস্যা হয়েছে</h1>
       {isChunkError ? (
         <p className="mt-3 max-w-lg text-slate-600">
-          The development cache is out of date (common on Windows). Stop the dev server (Ctrl+C), then run:{" "}
+          ডেভেলপমেন্ট ক্যাশ পুরোনো হয়ে গেছে (Windows-এ এটি সাধারণ). ডেভ সার্ভার বন্ধ করুন (Ctrl+C), তারপর চালান:{" "}
           <code className="rounded bg-slate-100 px-2 py-1 text-sm">npm run dev:fresh</code>
         </p>
       ) : (
@@ -33,10 +33,10 @@ export default function Error({
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <button type="button" onClick={reset} className="btn-primary inline-flex items-center gap-2">
           <RefreshCw className="h-4 w-4" />
-          Try again
+          আবার চেষ্টা করুন
         </button>
         <Link href="/" className="btn-outline">
-          Home
+          হোম
         </Link>
       </div>
     </div>

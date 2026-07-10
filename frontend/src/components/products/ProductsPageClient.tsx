@@ -149,12 +149,10 @@ export function ProductsPageClient() {
         {/* Header */}
         <div className="mb-12">
           <motion.h1 variants={slideInFromLeft} className="text-4xl font-bold mb-2 text-gray-900">
-            {locale === "bn" ? "আমাদের পণ্য" : "Our Products"}
+            আমাদের পণ্য
           </motion.h1>
           <motion.p variants={slideInFromLeft} className="text-gray-600">
-            {locale === "bn"
-              ? "সম্পূর্ণ কৃষি সমাধান খুঁজুন"
-              : "Find complete agricultural solutions"}
+            সম্পূর্ণ কৃষি সমাধান খুঁজুন
           </motion.p>
         </div>
 
@@ -165,7 +163,7 @@ export function ProductsPageClient() {
             className="bg-gradient-to-r from-mimpex-green/10 to-mimpex-green/5 rounded-lg p-4 mb-8 border border-mimpex-green/20"
           >
             <p className="text-sm text-gray-700">
-              {locale === "bn" ? "ফিল্টার: " : "Filters: "}
+              ফিল্টার: 
               {categoryFilter && (
                 <span className="font-semibold">
                   {getCategoryLabel(categoryFilter as ProductCategoryId, locale)}
@@ -174,13 +172,13 @@ export function ProductsPageClient() {
               )}
               {selectedCrop && (
                 <span className="font-semibold">
-                  {locale === "bn" ? `ফসল: ${selectedCrop.nameBn}` : `Crop: ${selectedCrop.nameBn}`}
+                  {`ফসল: ${selectedCrop.nameBn}`}
                   {searchQuery && ", "}
                 </span>
               )}
               {searchQuery && (
                 <span className="font-semibold">
-                  {locale === "bn" ? `খোঁজা: "${searchQuery}"` : `Search: "${searchQuery}"`}
+                  {`খোঁজা: "${searchQuery}"`}
                 </span>
               )}
             </p>
@@ -192,7 +190,7 @@ export function ProductsPageClient() {
           <motion.div variants={scaleIn} className="text-center py-12">
             <Database className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-600">
-              {locale === "bn" ? "কোন পণ্য পাওয়া যায়নি" : "No products found"}
+              কোন পণ্য পাওয়া যায়নি
             </p>
           </motion.div>
         ) : (
@@ -219,9 +217,7 @@ export function ProductsPageClient() {
 
             {/* Results Count */}
             <motion.div variants={slideInFromLeft} className="mt-8 text-center text-sm text-gray-600">
-              {locale === "bn"
-                ? `${filteredProducts.length} পণ্য প্রদর্শিত`
-                : `Showing ${filteredProducts.length} products`}
+              {`${filteredProducts.length} পণ্য প্রদর্শিত`}
             </motion.div>
           </>
         )}

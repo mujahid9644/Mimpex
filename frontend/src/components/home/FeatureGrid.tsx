@@ -68,7 +68,7 @@ export function FeatureGrid() {
 
                 {/* Micro UX Premium Indicator Link Line */}
                 <div className="mt-6 flex items-center gap-1 text-xs font-black uppercase tracking-wider text-lime-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500">
-                  <span>Learn More</span>
+                  <span>আরও জানুন</span>
                   <span>→</span>
                 </div>
 

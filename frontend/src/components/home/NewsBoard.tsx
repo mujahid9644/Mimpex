@@ -98,7 +98,7 @@ export function NewsBoard() {
                   {item.is_pinned && (
                     <span className="inline-flex items-center gap-1 rounded-md bg-red-950/80 border border-red-500/40 px-2 py-0.5 text-[10px] font-black uppercase text-red-400 tracking-wider">
                       <Pin className="h-2.5 w-2.5 text-red-400" />
-                      Pinned
+                      পিন করা
                     </span>
                   )}
                 </div>

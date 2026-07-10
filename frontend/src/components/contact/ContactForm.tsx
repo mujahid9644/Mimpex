@@ -46,7 +46,7 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="card-pro">
       <h3 className="text-xl font-bold text-mimpex-green-dark">{t.contact.formTitle}</h3>
-      <p className="mt-1 text-sm text-slate-500">We typically respond within 1–2 business days.</p>
+      <p className="mt-1 text-sm text-slate-500">আমরা সাধারণত ১–২ কর্মদিবসের মধ্যে উত্তর দিতে পারি।</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {[
           { name: "name", label: t.contact.name, type: "text", required: true, span: 2 },
@@ -65,7 +65,7 @@ export function ContactForm() {
         <textarea name="message" required rows={5} className="input-pro resize-none" />
       </div>
       {status === "error" && (
-        <p className="mt-3 text-sm text-mimpex-red">Could not submit. Ensure the Django API is running.</p>
+        <p className="mt-3 text-sm text-mimpex-red">ফর্ম পাঠানো যায়নি। Django API চালু আছে কিনা নিশ্চিত করুন।</p>
       )}
       <button type="submit" disabled={status === "loading"} className="btn-primary mt-6 w-full gap-2 sm:w-auto">
         <Send className="h-4 w-4" />

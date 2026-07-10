@@ -69,7 +69,7 @@ const faderEffect = {
 };
 
 export default function AboutPage() {
-  const { t, locale } = useLanguage();
+  const { locale } = useLanguage();
   const [data, setData] = useState<AboutData>(FALLBACK);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function AboutPage() {
   }, []);
 
   const p = data.profile;
-  const pick = (en: string, bn: string) => (locale === "bn" && bn ? bn : en);
+  const pick = (_en: string, bn: string) => bn || _en;
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#1f7a3a_0,#052e1e_42%,#02170f_100%)] relative overflow-hidden">

@@ -9,17 +9,13 @@ import { PageHero } from "@/components/ui/PageHero";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export default function ContactPage() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#1f7a3a_0,#052e1e_42%,#02170f_100%)]">
       <PageHero
         title={t.contact.title}
-        description={
-          locale === "bn"
-            ? "পণ্য, ডিলারশিপ ও অংশীদারিত্বের জন্য আমাদের কর্পোরেট টিমের সাথে যোগাযোগ করুন"
-            : "Reach our corporate team for product inquiries and partnerships"
-        }
+        description="পণ্য, ডিলারশিপ ও অংশীদারিত্বের জন্য আমাদের কর্পোরেট টিমের সাথে যোগাযোগ করুন"
       />
       <section className="py-16 md:py-24">
         <Container>

@@ -15,27 +15,26 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "mimpex-locale";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+  const [locale, setLocaleState] = useState<Locale>("bn");
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
-    if (saved === "en" || saved === "bn") setLocaleState(saved);
+    if (saved === "bn") setLocaleState(saved);
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    document.documentElement.lang = locale === "bn" ? "bn" : "en";
-    document.body.classList.toggle("locale-bn", locale === "bn");
-    document.body.classList.toggle("font-bengali", locale === "bn");
-    localStorage.setItem(STORAGE_KEY, locale);
-  }, [locale, ready]);
+    document.documentElement.lang = "bn";
+    document.body.classList.add("locale-bn", "font-bengali");
+    localStorage.setItem(STORAGE_KEY, "bn");
+  }, [ready]);
 
-  const setLocale = useCallback((next: Locale) => setLocaleState(next), []);
+  const setLocale = useCallback((_next: Locale) => setLocaleState("bn"), []);
 
   const toggleLocale = useCallback(() => {
-    setLocaleState((l) => (l === "en" ? "bn" : "en"));
+    setLocaleState("bn");
   }, []);
 
   const value = useMemo(

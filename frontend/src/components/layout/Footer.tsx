@@ -23,7 +23,7 @@ export function Footer() {
                 key={i}
                 href="#"
                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 transition hover:bg-mimpex-red"
-                aria-label="Social"
+                aria-label="সোশ্যাল মিডিয়া"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -32,7 +32,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">Quick Links</h4>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">দ্রুত লিঙ্ক</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
             {[
               { href: "/", label: t.nav.home },
@@ -50,15 +50,15 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">Contact</h4>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">যোগাযোগ</h4>
           <ul className="mt-4 space-y-3 text-sm text-white/80">
             <li className="flex gap-2">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-mimpex-red" />
-              House 12, Road 5, Dhanmondi, Dhaka 1205
+              হাউস ১২, রোড ৫, ধানমন্ডি, ঢাকা ১২০৫
             </li>
             <li className="flex gap-2">
               <Phone className="h-4 w-4 shrink-0 text-mimpex-red" />
-              +880 1234-567890
+              +৮৮০ ১২৩৪-৫৬৭৮৯০
             </li>
             <li className="flex gap-2">
               <Mail className="h-4 w-4 shrink-0 text-mimpex-red" />
@@ -68,12 +68,12 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">AI Services</h4>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-mimpex-red">AI সেবা</h4>
           <p className="mt-4 text-sm leading-relaxed text-white/75">
-            ImageBot crop diagnostics and 24/7 virtual PGR sales assistant — integrated on this platform.
+            ইমেজবট ফসল ডায়াগনস্টিকস ও ২৪/৭ ভার্চুয়াল PGR সেলস সহায়তা — এই প্ল্যাটফর্মে একীভূত।
           </p>
           <Link href="/#imagebot" className="mt-4 inline-block text-sm font-semibold text-white underline-offset-4 hover:underline">
-            Open ImageBot →
+            ইমেজবট খুলুন →
           </Link>
         </div>
       </Container>
