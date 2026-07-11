@@ -5,11 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { CATALOG_CATEGORIES } from "@/data/mimpex-catalog";
 import { MIMPEX_ASSETS } from "@/lib/assets";
 import { cn } from "@/lib/cn";
+import { MobileDrawer } from "./MobileDrawer";
 
 const navItems = [
   { href: "/about", label: "আমাদের সম্পর্কে" },
@@ -37,14 +38,16 @@ export function Navbar() {
     setProductOpen(false);
   }, [pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  const productCategories = useMemo(
+    () => CATALOG_CATEGORIES.filter((category) => category.id !== "all"),
+    []
+  );
 
-  const productCategories = useMemo(() => CATALOG_CATEGORIES.filter((category) => category.id !== "all"), []);
+  const handleToggleDrawer = useCallback(() => {
+    setOpen((value) => !value);
+  }, []);
+
+  const closeDrawer = useCallback(() => setOpen(false), []);
 
   return (
     <header className="sticky top-0 z-50">
@@ -116,57 +119,17 @@ export function Navbar() {
 
           <button
             type="button"
-            onClick={() => setOpen((value) => !value)}
+            onClick={handleToggleDrawer}
             aria-expanded={open}
             aria-label={open ? "Close navigation" : "Open navigation"}
-            className="ml-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-white/95 text-emerald-800 shadow-sm lg:hidden"
+            className="ml-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/95 text-emerald-800 shadow-sm ring-1 ring-slate-200 transition hover:bg-white lg:hidden"
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[55] bg-emerald-950/55 backdrop-blur-sm lg:hidden" onClick={() => setOpen(false)} />
-            <motion.aside
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 32, stiffness: 300 }}
-              className="fixed right-0 top-0 z-[60] flex h-dvh w-[min(100vw-2rem,360px)] flex-col bg-white shadow-2xl lg:hidden"
-            >
-              <div className="flex h-20 items-center justify-between border-b border-slate-100 px-4">
-                <Image src={MIMPEX_ASSETS.logo} alt="Mimpex" width={190} height={58} className="h-12 w-auto object-contain" />
-                <button type="button" onClick={() => setOpen(false)} className="rounded-md border border-slate-200 p-2 text-slate-700">
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              <nav className="flex flex-1 flex-col overflow-y-auto p-4">
-                {navItems.map((item) => (
-                  <Link key={item.href} href={item.href} className="rounded-md px-4 py-3 text-base font-bold text-slate-800 hover:bg-emerald-50">
-                    {item.label}
-                  </Link>
-                ))}
-                <div className="my-3 rounded-lg border border-slate-200">
-                  <Link href="/products" className="block rounded-t-lg bg-emerald-700 px-4 py-3 font-bold text-white">
-                    পণ্য তালিকা
-                  </Link>
-                  {productCategories.map((category) => (
-                    <Link key={category.id} href={`/products?category=${category.id}`} className="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">
-                      {category.labelBn}
-                    </Link>
-                  ))}
-                </div>
-                <Link href="/imagebot" className="mt-2 rounded-md bg-cyan-500 px-4 py-3 text-center text-lg font-bold text-white">
-                  কৃষি সমাধান
-                </Link>
-              </nav>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+      <MobileDrawer open={open} onClose={closeDrawer} categories={productCategories} />
     </header>
   );
 }
