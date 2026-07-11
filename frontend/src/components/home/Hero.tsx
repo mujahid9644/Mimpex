@@ -55,7 +55,7 @@ export function Hero() {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-7 text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-[1.02] active:scale-[0.98] md:h-14 md:text-base"
             >
               <ScanLine className="h-4 w-4 text-emerald-400" />
-              ImageBot চেষ্টা করুন
+              Mimpex AgriDoc🩺 
             </Link>
           </div>
         </motion.div>

@@ -77,7 +77,7 @@ export function ImageBotHub({ standalone = false, cropSlug = "" }: ImageBotHubPr
               <Bot className="h-4 w-4" />
               Gemini Vision Crop Pathology Portal
             </span>
-            <h2 className="mt-5 text-4xl font-black leading-tight text-white md:text-6xl">ইমেজবট কৃষি সমাধান</h2>
+            <h2 className="mt-5 text-4xl font-black leading-tight text-white md:text-6xl">Mimpex AgriDoc🩺 কৃষি সমাধান</h2>
             <p className="mt-5 text-lg leading-8 text-emerald-50/85">
               আক্রান্ত পাতা, কান্ড বা ফলের ছবি আপলোড করুন। ImageBot ফসলের ধরন, রোগ বিশ্লেষণ এবং Mimpex পণ্যের নির্ভুল ডোজ নির্দেশনা প্রদান করে।
             </p>
