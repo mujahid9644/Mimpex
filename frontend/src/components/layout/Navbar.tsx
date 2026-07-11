@@ -110,7 +110,7 @@ export function Navbar() {
               href="/imagebot"
               className="ml-4 flex h-14 items-center rounded-md border border-white/20 bg-cyan-500/90 px-6 text-[18px] font-black text-white shadow-lg shadow-cyan-950/15 transition hover:-translate-y-0.5 hover:bg-cyan-500 xl:px-8 xl:text-[22px]"
             >
-              কৃষি সমাধান
+              AgriDoc🩺
             </Link>
             <Link href="/products" aria-label="Search products" className="ml-4 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/10">
               <Search className="h-7 w-7" strokeWidth={2} />
