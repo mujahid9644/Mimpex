@@ -12,3 +12,4 @@ daphne>=4.0
 beautifulsoup4>=4.12
 requests>=2.31
 gunicorn>=22.0
+whitenoise>=6.8.0
