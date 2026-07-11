@@ -136,10 +136,13 @@ CHANNEL_LAYERS = {
 if os.getenv("USE_INMEMORY_CHANNEL_LAYER", "true").lower() == "true":
     CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mimpex.onrender.com",
+]
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
